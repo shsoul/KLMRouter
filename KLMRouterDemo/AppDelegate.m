@@ -7,8 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "KLMRouter.h"
+#import "KLMRouterRegister.h"
+#import "KLMHomeViewController.h"
+#import "KLMMainViewController.h"
+#import "KLMMyViewController.h"
+#import "KLMLoginViewController.h"
+#import "KLMDetailViewController.h"
+#import "KLMLoginInterceptor.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<KLMRouterDelegate>
 
 @end
 
@@ -17,9 +25,26 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self registerAll];
+    KLMRouter.router.delegate = self;
+    KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withNavigation(YES).navigate();
     return YES;
 }
 
+- (void)registerAll {
+    [KLMRouterRegister.routerRegister registerWithPath:@"main" toClass:[KLMMainViewController class]];
+    [KLMRouterRegister.routerRegister registerWithPath:@"home" toClass:[KLMHomeViewController class]];
+    [KLMRouterRegister.routerRegister registerWithPath:@"my" toClass:[KLMMyViewController class]];
+    [KLMRouterRegister.routerRegister registerWithPath:@"login" toClass:[KLMLoginViewController class]];
+    [KLMRouterRegister.routerRegister registerWithPath:@"detail" toClass:[KLMDetailViewController class]];
+    [KLMRouterRegister.routerRegister addInterceptor:[KLMLoginInterceptor new]];
+}
+
+- (UIWindow *)rootWindowFromApp {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    return self.window;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

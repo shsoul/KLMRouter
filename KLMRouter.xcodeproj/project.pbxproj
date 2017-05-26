@@ -7,25 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		514A0A901ED4311F000A63F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0A8F1ED4311F000A63F8 /* main.m */; };
-		514A0A931ED4311F000A63F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0A921ED4311F000A63F8 /* AppDelegate.m */; };
-		514A0A961ED4311F000A63F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0A951ED4311F000A63F8 /* ViewController.m */; };
-		514A0A991ED4311F000A63F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514A0A971ED4311F000A63F8 /* Main.storyboard */; };
-		514A0A9B1ED4311F000A63F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 514A0A9A1ED4311F000A63F8 /* Assets.xcassets */; };
-		514A0A9E1ED4311F000A63F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514A0A9C1ED4311F000A63F8 /* LaunchScreen.storyboard */; };
+		5145ADB61ED680F400F65FD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5145ADB41ED680F400F65FD8 /* LaunchScreen.storyboard */; };
+		514A0AE71ED580A6000A63F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0ADB1ED580A6000A63F8 /* AppDelegate.m */; };
+		514A0AE81ED580A6000A63F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 514A0ADC1ED580A6000A63F8 /* Assets.xcassets */; };
+		514A0AEB1ED580A6000A63F8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 514A0AE11ED580A6000A63F8 /* Info.plist */; };
+		514A0AEC1ED580A6000A63F8 /* KLMLoginInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AE31ED580A6000A63F8 /* KLMLoginInterceptor.m */; };
+		514A0AED1ED580A6000A63F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AE41ED580A6000A63F8 /* main.m */; };
+		514A0AEE1ED580A6000A63F8 /* KLMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AE61ED580A6000A63F8 /* KLMHomeViewController.m */; };
+		514A0AFD1ED580B9000A63F8 /* KLMCallbackDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AF11ED580B9000A63F8 /* KLMCallbackDTO.m */; };
+		514A0AFE1ED580B9000A63F8 /* KLMInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AF31ED580B9000A63F8 /* KLMInjection.m */; };
+		514A0AFF1ED580B9000A63F8 /* KLMPostcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AF71ED580B9000A63F8 /* KLMPostcard.m */; };
+		514A0B001ED580B9000A63F8 /* KLMRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AFA1ED580B9000A63F8 /* KLMRouter.m */; };
+		514A0B011ED580B9000A63F8 /* KLMRouterRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AFC1ED580B9000A63F8 /* KLMRouterRegister.m */; };
+		514A0B041ED5ACA2000A63F8 /* KLMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B031ED5ACA2000A63F8 /* KLMMainViewController.m */; };
+		514A0B071ED5AD01000A63F8 /* KLMMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B061ED5AD01000A63F8 /* KLMMyViewController.m */; };
+		514A0B0A1ED5AD36000A63F8 /* KLMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B091ED5AD36000A63F8 /* KLMDetailViewController.m */; };
+		514A0B0D1ED5AD45000A63F8 /* KLMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B0C1ED5AD45000A63F8 /* KLMLoginViewController.m */; };
+		514A0B101ED5AF14000A63F8 /* KLMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B0F1ED5AF14000A63F8 /* KLMBaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5145ADB51ED680F400F65FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		514A0A8B1ED4311F000A63F8 /* KLMRouter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KLMRouter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		514A0A8F1ED4311F000A63F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		514A0A911ED4311F000A63F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		514A0A921ED4311F000A63F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		514A0A941ED4311F000A63F8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		514A0A951ED4311F000A63F8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		514A0A981ED4311F000A63F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		514A0A9A1ED4311F000A63F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		514A0A9D1ED4311F000A63F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		514A0A9F1ED4311F000A63F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		514A0ADA1ED580A6000A63F8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		514A0ADB1ED580A6000A63F8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		514A0ADC1ED580A6000A63F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		514A0AE11ED580A6000A63F8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		514A0AE21ED580A6000A63F8 /* KLMLoginInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMLoginInterceptor.h; sourceTree = "<group>"; };
+		514A0AE31ED580A6000A63F8 /* KLMLoginInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMLoginInterceptor.m; sourceTree = "<group>"; };
+		514A0AE41ED580A6000A63F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		514A0AE51ED580A6000A63F8 /* KLMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMHomeViewController.h; sourceTree = "<group>"; };
+		514A0AE61ED580A6000A63F8 /* KLMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMHomeViewController.m; sourceTree = "<group>"; };
+		514A0AF01ED580B9000A63F8 /* KLMCallbackDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMCallbackDTO.h; sourceTree = "<group>"; };
+		514A0AF11ED580B9000A63F8 /* KLMCallbackDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMCallbackDTO.m; sourceTree = "<group>"; };
+		514A0AF21ED580B9000A63F8 /* KLMInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMInjection.h; sourceTree = "<group>"; };
+		514A0AF31ED580B9000A63F8 /* KLMInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMInjection.m; sourceTree = "<group>"; };
+		514A0AF41ED580B9000A63F8 /* KLMInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMInterceptor.h; sourceTree = "<group>"; };
+		514A0AF61ED580B9000A63F8 /* KLMPostcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMPostcard.h; sourceTree = "<group>"; };
+		514A0AF71ED580B9000A63F8 /* KLMPostcard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMPostcard.m; sourceTree = "<group>"; };
+		514A0AF81ED580B9000A63F8 /* KLMProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMProvider.h; sourceTree = "<group>"; };
+		514A0AF91ED580B9000A63F8 /* KLMRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMRouter.h; sourceTree = "<group>"; };
+		514A0AFA1ED580B9000A63F8 /* KLMRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMRouter.m; sourceTree = "<group>"; };
+		514A0AFB1ED580B9000A63F8 /* KLMRouterRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMRouterRegister.h; sourceTree = "<group>"; };
+		514A0AFC1ED580B9000A63F8 /* KLMRouterRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMRouterRegister.m; sourceTree = "<group>"; };
+		514A0B021ED5ACA2000A63F8 /* KLMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMMainViewController.h; sourceTree = "<group>"; };
+		514A0B031ED5ACA2000A63F8 /* KLMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMMainViewController.m; sourceTree = "<group>"; };
+		514A0B051ED5AD01000A63F8 /* KLMMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMMyViewController.h; sourceTree = "<group>"; };
+		514A0B061ED5AD01000A63F8 /* KLMMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMMyViewController.m; sourceTree = "<group>"; };
+		514A0B081ED5AD36000A63F8 /* KLMDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMDetailViewController.h; sourceTree = "<group>"; };
+		514A0B091ED5AD36000A63F8 /* KLMDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMDetailViewController.m; sourceTree = "<group>"; };
+		514A0B0B1ED5AD45000A63F8 /* KLMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMLoginViewController.h; sourceTree = "<group>"; };
+		514A0B0C1ED5AD45000A63F8 /* KLMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMLoginViewController.m; sourceTree = "<group>"; };
+		514A0B0E1ED5AF14000A63F8 /* KLMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMBaseViewController.h; sourceTree = "<group>"; };
+		514A0B0F1ED5AF14000A63F8 /* KLMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMBaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +76,8 @@
 		514A0A821ED4311F000A63F8 = {
 			isa = PBXGroup;
 			children = (
-				514A0A8D1ED4311F000A63F8 /* KLMRouter */,
+				514A0AEF1ED580B9000A63F8 /* KLMRouter */,
+				514A0AD91ED580A6000A63F8 /* KLMRouterDemo */,
 				514A0A8C1ED4311F000A63F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,28 +90,50 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		514A0A8D1ED4311F000A63F8 /* KLMRouter */ = {
+		514A0AD91ED580A6000A63F8 /* KLMRouterDemo */ = {
 			isa = PBXGroup;
 			children = (
-				514A0A911ED4311F000A63F8 /* AppDelegate.h */,
-				514A0A921ED4311F000A63F8 /* AppDelegate.m */,
-				514A0A941ED4311F000A63F8 /* ViewController.h */,
-				514A0A951ED4311F000A63F8 /* ViewController.m */,
-				514A0A971ED4311F000A63F8 /* Main.storyboard */,
-				514A0A9A1ED4311F000A63F8 /* Assets.xcassets */,
-				514A0A9C1ED4311F000A63F8 /* LaunchScreen.storyboard */,
-				514A0A9F1ED4311F000A63F8 /* Info.plist */,
-				514A0A8E1ED4311F000A63F8 /* Supporting Files */,
+				514A0ADA1ED580A6000A63F8 /* AppDelegate.h */,
+				514A0ADB1ED580A6000A63F8 /* AppDelegate.m */,
+				514A0ADC1ED580A6000A63F8 /* Assets.xcassets */,
+				5145ADB41ED680F400F65FD8 /* LaunchScreen.storyboard */,
+				514A0AE11ED580A6000A63F8 /* Info.plist */,
+				514A0AE21ED580A6000A63F8 /* KLMLoginInterceptor.h */,
+				514A0AE31ED580A6000A63F8 /* KLMLoginInterceptor.m */,
+				514A0B0E1ED5AF14000A63F8 /* KLMBaseViewController.h */,
+				514A0B0F1ED5AF14000A63F8 /* KLMBaseViewController.m */,
+				514A0B021ED5ACA2000A63F8 /* KLMMainViewController.h */,
+				514A0B031ED5ACA2000A63F8 /* KLMMainViewController.m */,
+				514A0B051ED5AD01000A63F8 /* KLMMyViewController.h */,
+				514A0B061ED5AD01000A63F8 /* KLMMyViewController.m */,
+				514A0AE51ED580A6000A63F8 /* KLMHomeViewController.h */,
+				514A0AE61ED580A6000A63F8 /* KLMHomeViewController.m */,
+				514A0B081ED5AD36000A63F8 /* KLMDetailViewController.h */,
+				514A0B091ED5AD36000A63F8 /* KLMDetailViewController.m */,
+				514A0B0B1ED5AD45000A63F8 /* KLMLoginViewController.h */,
+				514A0B0C1ED5AD45000A63F8 /* KLMLoginViewController.m */,
+				514A0AE41ED580A6000A63F8 /* main.m */,
 			);
-			path = KLMRouter;
+			path = KLMRouterDemo;
 			sourceTree = "<group>";
 		};
-		514A0A8E1ED4311F000A63F8 /* Supporting Files */ = {
+		514A0AEF1ED580B9000A63F8 /* KLMRouter */ = {
 			isa = PBXGroup;
 			children = (
-				514A0A8F1ED4311F000A63F8 /* main.m */,
+				514A0AF01ED580B9000A63F8 /* KLMCallbackDTO.h */,
+				514A0AF11ED580B9000A63F8 /* KLMCallbackDTO.m */,
+				514A0AF21ED580B9000A63F8 /* KLMInjection.h */,
+				514A0AF31ED580B9000A63F8 /* KLMInjection.m */,
+				514A0AF41ED580B9000A63F8 /* KLMInterceptor.h */,
+				514A0AF61ED580B9000A63F8 /* KLMPostcard.h */,
+				514A0AF71ED580B9000A63F8 /* KLMPostcard.m */,
+				514A0AF81ED580B9000A63F8 /* KLMProvider.h */,
+				514A0AF91ED580B9000A63F8 /* KLMRouter.h */,
+				514A0AFA1ED580B9000A63F8 /* KLMRouter.m */,
+				514A0AFB1ED580B9000A63F8 /* KLMRouterRegister.h */,
+				514A0AFC1ED580B9000A63F8 /* KLMRouterRegister.m */,
 			);
-			name = "Supporting Files";
+			path = KLMRouter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +194,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				514A0A9E1ED4311F000A63F8 /* LaunchScreen.storyboard in Resources */,
-				514A0A9B1ED4311F000A63F8 /* Assets.xcassets in Resources */,
-				514A0A991ED4311F000A63F8 /* Main.storyboard in Resources */,
+				5145ADB61ED680F400F65FD8 /* LaunchScreen.storyboard in Resources */,
+				514A0AEB1ED580A6000A63F8 /* Info.plist in Resources */,
+				514A0AE81ED580A6000A63F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,27 +207,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				514A0A961ED4311F000A63F8 /* ViewController.m in Sources */,
-				514A0A931ED4311F000A63F8 /* AppDelegate.m in Sources */,
-				514A0A901ED4311F000A63F8 /* main.m in Sources */,
+				514A0B071ED5AD01000A63F8 /* KLMMyViewController.m in Sources */,
+				514A0AFF1ED580B9000A63F8 /* KLMPostcard.m in Sources */,
+				514A0AEC1ED580A6000A63F8 /* KLMLoginInterceptor.m in Sources */,
+				514A0AED1ED580A6000A63F8 /* main.m in Sources */,
+				514A0B001ED580B9000A63F8 /* KLMRouter.m in Sources */,
+				514A0B041ED5ACA2000A63F8 /* KLMMainViewController.m in Sources */,
+				514A0B101ED5AF14000A63F8 /* KLMBaseViewController.m in Sources */,
+				514A0B0A1ED5AD36000A63F8 /* KLMDetailViewController.m in Sources */,
+				514A0AFE1ED580B9000A63F8 /* KLMInjection.m in Sources */,
+				514A0AEE1ED580A6000A63F8 /* KLMHomeViewController.m in Sources */,
+				514A0B011ED580B9000A63F8 /* KLMRouterRegister.m in Sources */,
+				514A0B0D1ED5AD45000A63F8 /* KLMLoginViewController.m in Sources */,
+				514A0AE71ED580A6000A63F8 /* AppDelegate.m in Sources */,
+				514A0AFD1ED580B9000A63F8 /* KLMCallbackDTO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		514A0A971ED4311F000A63F8 /* Main.storyboard */ = {
+		5145ADB41ED680F400F65FD8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				514A0A981ED4311F000A63F8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		514A0A9C1ED4311F000A63F8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				514A0A9D1ED4311F000A63F8 /* Base */,
+				5145ADB51ED680F400F65FD8 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -219,6 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/KLMRouter/KLMRouterDemo";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -262,6 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/KLMRouter/KLMRouterDemo";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -274,7 +336,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = KLMRouter/Info.plist;
+				INFOPLIST_FILE = KLMRouterDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sjst.xgfe.KLMRouter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -285,7 +348,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = KLMRouter/Info.plist;
+				INFOPLIST_FILE = KLMRouterDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sjst.xgfe.KLMRouter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -311,6 +375,7 @@
 				514A0AA41ED4311F000A63F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

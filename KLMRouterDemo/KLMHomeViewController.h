@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KLMProvider.h"
 
-@interface ViewController : UIViewController
+@interface KLMHomeViewController : UITabBarController<KLMProvider>
 
 
 @end
