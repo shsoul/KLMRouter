@@ -7,12 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KLMCallbackDTO.h"
 #import "KLMPostcard.h"
 
 typedef void(^KLMInterceptorBlock)(BOOL isSuccess);
 
-typedef void(^KLMCallbackBlock)(KLMCallbackDTO *callbackData);
+typedef void(^KLMCallbackBlock)(id callbackData);
 
 @protocol KLMInterceptor <NSObject>
 

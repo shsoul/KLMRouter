@@ -46,14 +46,9 @@
 
 - (void)click:(id)sender {
     [KLMRouter.router popTopViewController];
-    KLMCallbackDTO *dto = [[KLMCallbackDTO alloc] init];
-    if (sender == _back) {
-        dto.isSuccess = NO;
-    } else if (sender == _login) {
-        dto.isSuccess = YES;
-    }
+    BOOL isSuccess = sender == _back ? NO : YES;
     if (self.callback) {
-        self.callback(dto);
+        self.callback(@(isSuccess));
     }
 }
 

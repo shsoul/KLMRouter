@@ -13,8 +13,8 @@
 
 - (void)processWithPostcard:(KLMPostcard *)postcard callback:(KLMInterceptorBlock)callback {
     if ([postcard.url isEqualToString:@"my"]) {
-        KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(KLMCallbackDTO *dto) {
-            callback(dto.isSuccess);
+        KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
+            callback([data boolValue]);
         }).present();
     } else {
         callback(YES);

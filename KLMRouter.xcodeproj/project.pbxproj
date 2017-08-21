@@ -14,7 +14,6 @@
 		514A0AEC1ED580A6000A63F8 /* KLMLoginInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AE31ED580A6000A63F8 /* KLMLoginInterceptor.m */; };
 		514A0AED1ED580A6000A63F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AE41ED580A6000A63F8 /* main.m */; };
 		514A0AEE1ED580A6000A63F8 /* KLMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AE61ED580A6000A63F8 /* KLMHomeViewController.m */; };
-		514A0AFD1ED580B9000A63F8 /* KLMCallbackDTO.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AF11ED580B9000A63F8 /* KLMCallbackDTO.m */; };
 		514A0AFE1ED580B9000A63F8 /* KLMInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AF31ED580B9000A63F8 /* KLMInjection.m */; };
 		514A0AFF1ED580B9000A63F8 /* KLMPostcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AF71ED580B9000A63F8 /* KLMPostcard.m */; };
 		514A0B001ED580B9000A63F8 /* KLMRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0AFA1ED580B9000A63F8 /* KLMRouter.m */; };
@@ -38,8 +37,6 @@
 		514A0AE41ED580A6000A63F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		514A0AE51ED580A6000A63F8 /* KLMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMHomeViewController.h; sourceTree = "<group>"; };
 		514A0AE61ED580A6000A63F8 /* KLMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMHomeViewController.m; sourceTree = "<group>"; };
-		514A0AF01ED580B9000A63F8 /* KLMCallbackDTO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMCallbackDTO.h; sourceTree = "<group>"; };
-		514A0AF11ED580B9000A63F8 /* KLMCallbackDTO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMCallbackDTO.m; sourceTree = "<group>"; };
 		514A0AF21ED580B9000A63F8 /* KLMInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMInjection.h; sourceTree = "<group>"; };
 		514A0AF31ED580B9000A63F8 /* KLMInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMInjection.m; sourceTree = "<group>"; };
 		514A0AF41ED580B9000A63F8 /* KLMInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMInterceptor.h; sourceTree = "<group>"; };
@@ -120,8 +117,6 @@
 		514A0AEF1ED580B9000A63F8 /* KLMRouter */ = {
 			isa = PBXGroup;
 			children = (
-				514A0AF01ED580B9000A63F8 /* KLMCallbackDTO.h */,
-				514A0AF11ED580B9000A63F8 /* KLMCallbackDTO.m */,
 				514A0AF21ED580B9000A63F8 /* KLMInjection.h */,
 				514A0AF31ED580B9000A63F8 /* KLMInjection.m */,
 				514A0AF41ED580B9000A63F8 /* KLMInterceptor.h */,
@@ -220,7 +215,6 @@
 				514A0B011ED580B9000A63F8 /* KLMRouterRegister.m in Sources */,
 				514A0B0D1ED5AD45000A63F8 /* KLMLoginViewController.m in Sources */,
 				514A0AE71ED580A6000A63F8 /* AppDelegate.m in Sources */,
-				514A0AFD1ED580B9000A63F8 /* KLMCallbackDTO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
