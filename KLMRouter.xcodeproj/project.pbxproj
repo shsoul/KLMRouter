@@ -23,6 +23,7 @@
 		514A0B0A1ED5AD36000A63F8 /* KLMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B091ED5AD36000A63F8 /* KLMDetailViewController.m */; };
 		514A0B0D1ED5AD45000A63F8 /* KLMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B0C1ED5AD45000A63F8 /* KLMLoginViewController.m */; };
 		514A0B101ED5AF14000A63F8 /* KLMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514A0B0F1ED5AF14000A63F8 /* KLMBaseViewController.m */; };
+		515182E41F4BE753002DA9CE /* KLMRegistedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 515182E31F4BE753002DA9CE /* KLMRegistedInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,8 @@
 		514A0B0C1ED5AD45000A63F8 /* KLMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMLoginViewController.m; sourceTree = "<group>"; };
 		514A0B0E1ED5AF14000A63F8 /* KLMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMBaseViewController.h; sourceTree = "<group>"; };
 		514A0B0F1ED5AF14000A63F8 /* KLMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMBaseViewController.m; sourceTree = "<group>"; };
+		515182E21F4BE753002DA9CE /* KLMRegistedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMRegistedInfo.h; sourceTree = "<group>"; };
+		515182E31F4BE753002DA9CE /* KLMRegistedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMRegistedInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				514A0AFA1ED580B9000A63F8 /* KLMRouter.m */,
 				514A0AFB1ED580B9000A63F8 /* KLMRouterRegister.h */,
 				514A0AFC1ED580B9000A63F8 /* KLMRouterRegister.m */,
+				515182E21F4BE753002DA9CE /* KLMRegistedInfo.h */,
+				515182E31F4BE753002DA9CE /* KLMRegistedInfo.m */,
 			);
 			path = KLMRouter;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				514A0AEC1ED580A6000A63F8 /* KLMLoginInterceptor.m in Sources */,
 				514A0AED1ED580A6000A63F8 /* main.m in Sources */,
 				514A0B001ED580B9000A63F8 /* KLMRouter.m in Sources */,
+				515182E41F4BE753002DA9CE /* KLMRegistedInfo.m in Sources */,
 				514A0B041ED5ACA2000A63F8 /* KLMMainViewController.m in Sources */,
 				514A0B101ED5AF14000A63F8 /* KLMBaseViewController.m in Sources */,
 				514A0B0A1ED5AD36000A63F8 /* KLMDetailViewController.m in Sources */,

@@ -10,7 +10,7 @@
 
 @interface KLMDetailViewController ()
 
-@property(nonatomic, strong) NSString *say;
+@property(nonatomic, assign)NSInteger goodsId;
 
 @end
 
@@ -29,10 +29,36 @@
     [self addBackButton];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"详情";
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 60) / 2, self.view.frame.size.width, 60)];
-    label.text = _say;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 30) / 2, self.view.frame.size.width, 30)];
+    label.text = [NSString stringWithFormat:@"当前商品： %ld", self.goodsId];
     label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label];
+    
+    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(50, (self.view.frame.size.height - 60) / 2 + 60, 60, 30)];
+    [btn1 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btn1 setTitle:@"商品1" forState:UIControlStateNormal];
+    [btn1 setTag:1];
+    [btn1 addTarget:self action:@selector(clickGoods:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 60) / 2, (self.view.frame.size.height - 60) / 2 + 60, 60, 30)];
+    [btn2 setTitle:@"商品2" forState:UIControlStateNormal];
+    [btn2 setTag:2];
+    [btn2 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(clickGoods:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
+    UIButton *btn3 = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 110, (self.view.frame.size.height - 60) / 2 + 60, 60, 30)];
+    [btn3 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btn3 setTitle:@"商品3" forState:UIControlStateNormal];
+    [btn3 setTag:3];
+    [btn3 addTarget:self action:@selector(clickGoods:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
+    
+}
+
+- (void)clickGoods:(id)sender {
+    KLMRouter.router.build([NSString stringWithFormat:@"detail/%ld/", [sender tag]]).withAnimated(YES).navigate();
 }
 
 - (void)didReceiveMemoryWarning {

@@ -163,19 +163,15 @@
 }
 
 - (instancetype)operation {
-    return [[[self.routerRegister getClassWithPath:self.url] alloc] initWithParameter:self.parameter callback:self.callback];
+    return [[[self.routerRegister getRegistedInfoWithPath:self.url].class alloc] initWithParameter:self.parameter callback:self.callback];
 }
 
-- (UIViewController *)getNewViewControllerWithOpenMode:(KLMOpenOperation)mode url:(NSString *)url parameter:(NSDictionary *)parameter callback:(KLMCallbackBlock)callback controllers:(NSArray *)controllers {
-    UIViewController *newVC = [[[self.routerRegister getClassWithPath:url] alloc] initWithParameter:parameter callback:callback];
-    KLMPostcard *postcard = [[KLMPostcard alloc] init];
-    postcard.url = url;
-    postcard.openMode = mode;
-    [_pathsStack addObject:postcard];
+- (UIViewController *)getNewViewControllerWithClass:(Class)class url:(NSString *)url parameter:(NSDictionary *)parameter callback:(KLMCallbackBlock)callback controllers:(NSArray *)controllers {
+    UIViewController *newVC = [[class alloc] initWithParameter:parameter callback:callback];
     if (controllers.count) {
         NSMutableArray *vcArray = [[NSMutableArray alloc] init];
         for (NSString *url in controllers) {
-            UIViewController *tab = [[[self.routerRegister getClassWithPath:url] alloc] initWithParameter:nil callback:nil];
+            UIViewController *tab = [[[self.routerRegister getRegistedInfoWithPath:url].KLMClass alloc] initWithParameter:nil callback:nil];
             [vcArray addObject:tab];
             [_vcMap setObject:tab forKey:url];
         }
@@ -189,17 +185,56 @@
     return newVC;
 }
 
+- (KLMPostcard *)removeViewController:(UIViewController *)vc url:(NSString *)url {
+    NSMutableArray *vcs = [NSMutableArray arrayWithArray: vc.navigationController.viewControllers];
+    [vcs removeObject:vc];
+    vc.navigationController.viewControllers = vcs;
+    KLMPostcard *post = nil;
+    for (KLMPostcard *postcard in self.pathsStack) {
+        if ([postcard.url isEqualToString:url]) {
+            post = postcard;
+            [self.pathsStack removeObject:postcard];
+            break;
+        }
+    }
+    return post;
+}
+
 - (void)pushWithUrl:(NSString *)url animated:(BOOL)animated parameter:(NSDictionary *)parameter callBack:(KLMCallbackBlock)callback controllers:(NSArray *)controllers {
     UIViewController *vc = [_vcMap objectForKey:url];
-    KLMPostcard *p = [[KLMPostcard alloc] init];
-    p.url = url;
-    p.parameter = parameter;
-    [self handleWithInterceptorsWithPostcard:p callback:^(BOOL isSuccess) {
+    KLMRegistedInfo *info = [self.routerRegister getRegistedInfoWithPath:url];
+    NSMutableDictionary *p = [NSMutableDictionary dictionaryWithDictionary:parameter];
+    for (NSMutableDictionary *d in info.parameter) {
+        [p addEntriesFromDictionary:d];
+    }
+    parameter = p;
+    KLMPostcard *postcard = [[KLMPostcard alloc] init];
+    postcard.url = url;
+    postcard.openMode = KLMPush;
+    postcard.parameter = parameter;
+    [self handleWithInterceptorsWithPostcard:postcard callback:^(BOOL isSuccess) {
         if (isSuccess) {
             if (vc) {
-                [self popToViewController:vc withAnimated:animated];
-                if ([vc respondsToSelector:@selector(updateWithParameter:)]) {
-                    [(id<KLMProvider>)vc updateWithParameter:parameter];
+                if (info.parameter) {
+                    KLMPostcard *post = [self removeViewController:vc url:url];
+                    
+                    UIViewController *topVC = [self topViewController];
+                    if ([topVC isKindOfClass:[UITabBarController class]]) {
+                        topVC = [(UITabBarController *)topVC selectedViewController];
+                    }
+                    
+                    [self.pathsStack addObject:post];
+                    
+                    NSAssert(topVC.navigationController != nil, @"current viewController can not push!");
+                    [topVC.navigationController pushViewController:vc animated:animated];
+                    if ([vc respondsToSelector:@selector(updateWithParameter:)]) {
+                        [(id<KLMProvider>)vc updateWithParameter:parameter];
+                    }
+                } else {
+                    [self popToViewController:vc withAnimated:animated];
+                    if ([vc respondsToSelector:@selector(updateWithParameter:)]) {
+                        [(id<KLMProvider>)vc updateWithParameter:parameter];
+                    }
                 }
             } else {
                 UIViewController *topVC = [self topViewController];
@@ -208,7 +243,8 @@
                 }
                 
                 NSAssert(topVC.navigationController != nil, @"current viewController can not push!");
-                UIViewController *newVC = [self getNewViewControllerWithOpenMode:KLMPush url:url parameter:parameter callback:callback controllers:controllers];
+                UIViewController *newVC = [self getNewViewControllerWithClass:info.KLMClass url:url parameter:parameter callback:callback controllers:controllers];
+                [self.pathsStack addObject:postcard];
                 [topVC.navigationController pushViewController:newVC animated:animated];
             }
         }
@@ -216,16 +252,24 @@
 }
 
 - (void)presentWithUrl:(NSString *)url animated:(BOOL)animated parameter:(NSDictionary *)parameter callback:(KLMCallbackBlock)callback controllers:(NSArray *)controllers {
-    KLMPostcard *p = [[KLMPostcard alloc] init];
-    p.url = url;
-    p.parameter = parameter;
-    [self handleWithInterceptorsWithPostcard:p callback:^(BOOL isSuccess) {
+    KLMRegistedInfo *info = [self.routerRegister getRegistedInfoWithPath:url];
+    NSMutableDictionary *p = [NSMutableDictionary dictionaryWithDictionary:parameter];
+    for (NSMutableDictionary *d in info.parameter) {
+        [p addEntriesFromDictionary:d];
+    }
+    parameter = p;
+    KLMPostcard *postcard = [[KLMPostcard alloc] init];
+    postcard.url = url;
+    postcard.openMode = KLMPresent;
+    postcard.parameter = parameter;
+    [self handleWithInterceptorsWithPostcard:postcard callback:^(BOOL isSuccess) {
         if (isSuccess) {
             UIViewController *topVC = [self topViewController];
             if ([topVC isKindOfClass:[UITabBarController class]]) {
                 topVC = [(UITabBarController *)topVC selectedViewController];
             }
-            UIViewController *newVC = [self getNewViewControllerWithOpenMode:KLMPresent url:url parameter:parameter callback:callback controllers:controllers];
+            UIViewController *newVC = [self getNewViewControllerWithClass:info.KLMClass url:url parameter:parameter callback:callback controllers:controllers];
+            [self.pathsStack addObject:postcard];
             if (self.isNavigation) {
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:newVC];
                 [topVC presentViewController:nav animated:animated completion:nil];
@@ -305,7 +349,17 @@
         window = [self.delegate rootWindowFromApp];
     }
     NSAssert(window != nil, @"app window does not exist！please complete KLMRouter delegate.");
-    UIViewController *vc = [self getNewViewControllerWithOpenMode:KLMPush url:self.url parameter:self.parameter callback:self.callback controllers:self.controllers];
+    KLMRegistedInfo *info = [self.routerRegister getRegistedInfoWithPath:self.url];
+    NSMutableDictionary *p = [NSMutableDictionary dictionaryWithDictionary:self.parameter];
+    for (NSMutableDictionary *d in info.parameter) {
+        [p addEntriesFromDictionary:d];
+    }
+    KLMPostcard *postcard = [[KLMPostcard alloc] init];
+    postcard.url = self.url;
+    postcard.openMode = KLMPush;
+    postcard.parameter = self.parameter;
+    UIViewController *vc = [self getNewViewControllerWithClass:info.KLMClass url:self.url parameter:self.parameter callback:self.callback controllers:self.controllers];
+    [self.pathsStack addObject:postcard];
     if (self.isNavigation) {
         window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     } else {

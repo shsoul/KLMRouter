@@ -37,6 +37,7 @@
     [KLMRouterRegister.routerRegister registerWithPath:@"my" toClass:[KLMMyViewController class]];
     [KLMRouterRegister.routerRegister registerWithPath:@"login" toClass:[KLMLoginViewController class]];
     [KLMRouterRegister.routerRegister registerWithPath:@"detail" toClass:[KLMDetailViewController class]];
+    [KLMRouterRegister.routerRegister registerWithPath:@"detail/:goodsId/" toClass:[KLMDetailViewController class]];
     [KLMRouterRegister.routerRegister addInterceptor:[KLMLoginInterceptor new]];
 }
 

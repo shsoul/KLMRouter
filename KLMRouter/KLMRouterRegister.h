@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "KLMInterceptor.h"
+#import "KLMRegistedInfo.h"
 
 @interface KLMRouterRegister : NSObject
 
 + (KLMRouterRegister *)routerRegister;
 - (void)registerWithPath:(NSString *)path toClass:(Class)KLMClass;
-- (Class)getClassWithPath:(NSString *)path;
+- (KLMRegistedInfo *)getRegistedInfoWithPath:(NSString *)path;
 - (void)addInterceptor:(id<KLMInterceptor>)object;
 - (NSArray *)getInterceptors;
 
