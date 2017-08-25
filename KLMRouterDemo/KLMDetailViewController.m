@@ -23,6 +23,13 @@
     return self;
 }
 
+- (id)initWithGoodsId:(NSInteger)goodsId {
+    if (self = [super init]) {
+        self.goodsId = goodsId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -55,10 +62,23 @@
     [btn3 addTarget:self action:@selector(clickGoods:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
     
+    UIButton *backMain = [[UIButton alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 100) / 2, self.view.frame.size.width, 30)];
+    [backMain setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [backMain setTitle:@"回到首页" forState:UIControlStateNormal];
+    [backMain addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backMain];
 }
 
 - (void)clickGoods:(id)sender {
-    KLMRouter.router.build([NSString stringWithFormat:@"detail/%ld/", [sender tag]]).withAnimated(YES).navigate();
+    if ([sender tag] == 3) {
+        [self.navigationController pushViewController:[[KLMDetailViewController alloc] initWithGoodsId:3] animated:YES];
+    } else {
+        KLMRouter.router.build([NSString stringWithFormat:@"detail/%ld/", [sender tag]]).withAnimated(YES).navigate();
+    }
+}
+
+- (void)clickBack:(id)sender {
+    KLMRouter.router.build(@"main").withNumber(@"goodsId", @(self.goodsId)).navigate();
 }
 
 - (void)didReceiveMemoryWarning {

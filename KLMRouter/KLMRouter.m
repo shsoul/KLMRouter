@@ -15,7 +15,6 @@
 @interface KLMRouter()
 
 @property(nonatomic, strong) KLMRouterRegister *routerRegister;
-@property(nonatomic, strong) NSMutableArray *pathsStack;
 @property(nonatomic, strong) NSMutableDictionary *vcMap;
 @property(nonatomic, strong) NSString *url;
 @property(nonatomic, strong) NSMutableDictionary *parameter;
@@ -24,6 +23,7 @@
 @property(nonatomic, assign) BOOL isRoot;
 @property(nonatomic, strong) NSArray *controllers;
 @property(nonatomic, strong) KLMCallbackBlock callback;
+@property(nonatomic, strong) UIWindow *window;
 
 @end
 
@@ -43,7 +43,6 @@
 - (id)init {
     if (self = [super init]) {
         self.routerRegister = [KLMRouterRegister routerRegister];
-        _pathsStack = [NSMutableArray new];
         _vcMap = [NSMutableDictionary new];
         [self setup];
         
@@ -72,7 +71,6 @@
 - (KLMRouter* (^)(NSString *url))buildRoot {
     [self setup];
     self.isRoot = YES;
-    _pathsStack = [NSMutableArray new];
     _vcMap = [NSMutableDictionary new];
     return ^(NSString *url) {
         self.url = url;
@@ -177,27 +175,17 @@
         }
         NSAssert(([newVC isKindOfClass:[UITabBarController class]]), @"not tabBarController");
         [(UITabBarController *)newVC setViewControllers:vcArray animated:NO];
-        [_vcMap setObject:@{@"controllers" : controllers,
-                            @"tabBarController" : newVC} forKey:url];
+        [_vcMap setObject:newVC forKey:url];
     } else {
         [_vcMap setObject:newVC forKey:url];
     }
     return newVC;
 }
 
-- (KLMPostcard *)removeViewController:(UIViewController *)vc url:(NSString *)url {
+- (void)removeViewController:(UIViewController *)vc url:(NSString *)url {
     NSMutableArray *vcs = [NSMutableArray arrayWithArray: vc.navigationController.viewControllers];
     [vcs removeObject:vc];
     vc.navigationController.viewControllers = vcs;
-    KLMPostcard *post = nil;
-    for (KLMPostcard *postcard in self.pathsStack) {
-        if ([postcard.url isEqualToString:url]) {
-            post = postcard;
-            [self.pathsStack removeObject:postcard];
-            break;
-        }
-    }
-    return post;
 }
 
 - (void)pushWithUrl:(NSString *)url animated:(BOOL)animated parameter:(NSDictionary *)parameter callBack:(KLMCallbackBlock)callback controllers:(NSArray *)controllers {
@@ -216,14 +204,9 @@
         if (isSuccess) {
             if (vc) {
                 if (info.parameter) {
-                    KLMPostcard *post = [self removeViewController:vc url:url];
+                    [self removeViewController:vc url:url];
                     
-                    UIViewController *topVC = [self topViewController];
-                    if ([topVC isKindOfClass:[UITabBarController class]]) {
-                        topVC = [(UITabBarController *)topVC selectedViewController];
-                    }
-                    
-                    [self.pathsStack addObject:post];
+                    UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];
                     
                     NSAssert(topVC.navigationController != nil, @"current viewController can not push!");
                     [topVC.navigationController pushViewController:vc animated:animated];
@@ -237,14 +220,10 @@
                     }
                 }
             } else {
-                UIViewController *topVC = [self topViewController];
-                if ([topVC isKindOfClass:[UITabBarController class]]) {
-                    topVC = [(UITabBarController *)topVC selectedViewController];
-                }
+                UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];
                 
                 NSAssert(topVC.navigationController != nil, @"current viewController can not push!");
                 UIViewController *newVC = [self getNewViewControllerWithClass:info.KLMClass url:url parameter:parameter callback:callback controllers:controllers];
-                [self.pathsStack addObject:postcard];
                 [topVC.navigationController pushViewController:newVC animated:animated];
             }
         }
@@ -264,12 +243,8 @@
     postcard.parameter = parameter;
     [self handleWithInterceptorsWithPostcard:postcard callback:^(BOOL isSuccess) {
         if (isSuccess) {
-            UIViewController *topVC = [self topViewController];
-            if ([topVC isKindOfClass:[UITabBarController class]]) {
-                topVC = [(UITabBarController *)topVC selectedViewController];
-            }
+            UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];
             UIViewController *newVC = [self getNewViewControllerWithClass:info.KLMClass url:url parameter:parameter callback:callback controllers:controllers];
-            [self.pathsStack addObject:postcard];
             if (self.isNavigation) {
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:newVC];
                 [topVC presentViewController:nav animated:animated completion:nil];
@@ -301,19 +276,20 @@
     }
 }
 
-- (UIViewController *)topViewController {
-    KLMPostcard *postcard = [self.pathsStack lastObject];
-    id x = [self.vcMap objectForKey:postcard.url];
-    if ([x isKindOfClass:[NSDictionary class]]) {
-        return x[@"tabBarController"];
+- (UIViewController *)topViewControllerFrom:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self topViewControllerFrom:[(UITabBarController *)vc selectedViewController]];
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self topViewControllerFrom:[(UINavigationController *)vc visibleViewController]];
+    } else if (vc.presentedViewController) {
+        return [self topViewControllerFrom:vc.presentedViewController];
     } else {
-        return x;
+        return vc;
     }
 }
 
 - (void)popToViewController:(UIViewController *)vc withAnimated:(BOOL)animated {
-    KLMPostcard *postcard = [self.pathsStack lastObject];
-    UIViewController *topVC = [self topViewController];
+    UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];
     while (topVC != vc) {
         if ([topVC isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tab = (UITabBarController *)topVC;
@@ -324,31 +300,42 @@
                     return;
                 }
             }
-        }
-        postcard = [self.pathsStack lastObject];
-        [self.pathsStack removeLastObject];
-        [self removeMapControllersWithPath:postcard.url];
-        UIViewController *nextVC = [self topViewController];
-        BOOL shouldAnimated = NO;
-        if ((nextVC == vc || ([nextVC isKindOfClass:[UITabBarController class]] && [[(UITabBarController *)nextVC viewControllers] containsObject:vc])) && animated) {
-            shouldAnimated = YES;
-        }
-        [self dismissModalViewController:topVC.presentedViewController];
-        if (postcard.openMode == KLMPresent) {
-            [topVC dismissViewControllerAnimated:shouldAnimated completion:nil];
+        } else if (topVC.presentingViewController) {
+            UIViewController *nextVC = topVC.presentingViewController;
+            [self removeMapControllersWithViewController:topVC];
+            if (nextVC != vc) {
+                [topVC dismissViewControllerAnimated:NO completion:nil];
+            } else {
+                [topVC dismissViewControllerAnimated:animated completion:nil];
+            }
+            
+            topVC = nextVC;
+        } else if (topVC.navigationController) {
+            if (topVC.navigationController.viewControllers.count > 1) {
+                [self removeMapControllersWithViewController:topVC];
+                UIViewController *nextVC = topVC;
+                if (nextVC != vc) {
+                    [topVC.navigationController popViewControllerAnimated:NO];
+                } else {
+                    [topVC.navigationController popViewControllerAnimated:animated];
+                }
+                topVC = nextVC;
+            } else {
+                topVC = topVC.navigationController.topViewController;
+            }
+        } else if ([topVC isKindOfClass:[UINavigationController class]]){
+            topVC = [(UINavigationController *)topVC topViewController];
         } else {
-            [topVC.navigationController popViewControllerAnimated:shouldAnimated];
+            return;
         }
-        topVC = nextVC;
     }
 }
 
 - (void)openRootViewController {
-    UIWindow *window = nil;
     if ([self.delegate respondsToSelector:@selector(rootWindowFromApp)]) {
-        window = [self.delegate rootWindowFromApp];
+        self.window = [self.delegate rootWindowFromApp];
     }
-    NSAssert(window != nil, @"app window does not exist！please complete KLMRouter delegate.");
+    NSAssert(self.window != nil, @"app window does not exist！please complete KLMRouter delegate.");
     KLMRegistedInfo *info = [self.routerRegister getRegistedInfoWithPath:self.url];
     NSMutableDictionary *p = [NSMutableDictionary dictionaryWithDictionary:self.parameter];
     for (NSMutableDictionary *d in info.parameter) {
@@ -359,50 +346,40 @@
     postcard.openMode = KLMPush;
     postcard.parameter = self.parameter;
     UIViewController *vc = [self getNewViewControllerWithClass:info.KLMClass url:self.url parameter:self.parameter callback:self.callback controllers:self.controllers];
-    [self.pathsStack addObject:postcard];
     if (self.isNavigation) {
-        window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
+        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     } else {
-        window.rootViewController = vc;
+        self.window.rootViewController = vc;
     }
-    [window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];
 }
 
-- (void)removeMapControllersWithPath:(NSString *)url {
-    id x = [self.vcMap objectForKey:url];
-    if ([x isKindOfClass:[NSDictionary class]]) {
-        for (NSString *key in x[@"controllers"]) {
-            [self.vcMap removeObjectForKey:key];
+- (void)removeMapControllersWithViewController:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UITabBarController class]]) {
+        for (UIViewController *c in [(UITabBarController *)vc viewControllers]) {
+            [self removeVC:c];
         }
     }
-    [self.vcMap removeObjectForKey:url];
+    [self removeVC:vc];
 }
 
-- (void)dismissModalViewController:(UIViewController *)vc {
-    if (vc == nil) {
-        return;
-    }
-    if (vc.presentedViewController == nil) {
-        [vc dismissViewControllerAnimated:NO completion:nil];
-    } else {
-        [self dismissModalViewController:vc.presentedViewController];
+- (void)removeVC:(UIViewController *)vc {
+    for (NSString *key in self.vcMap.allKeys) {
+        if (self.vcMap[key] == vc) {
+            [self.vcMap removeObjectForKey:key];
+            break;
+        }
     }
 }
 
 - (void)popTopViewController {
-    if (self.pathsStack.count <= 1) {
-        return;
-    }
-    KLMPostcard *postcard = [self.pathsStack lastObject];
-    UIViewController *vc = [self.vcMap objectForKey:postcard.url];
-    [self dismissModalViewController:vc.presentedViewController];
-    if (postcard.openMode == KLMPresent) {
-        [vc dismissViewControllerAnimated:YES completion:nil];
-    } else {
+    UIViewController *vc = [self topViewControllerFrom:self.window.rootViewController];
+    [self removeMapControllersWithViewController:vc];
+    if (vc.navigationController && vc.navigationController.viewControllers.count > 1) {
         [vc.navigationController popViewControllerAnimated:YES];
+    } else if (vc.presentingViewController) {
+        [vc dismissViewControllerAnimated:YES completion:nil];
     }
-    [self.pathsStack removeLastObject];
-    [self removeMapControllersWithPath:postcard.url];
 }
 
 - (void)inject:(id)object withParameter:(NSDictionary *)parameter {

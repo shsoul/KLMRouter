@@ -11,4 +11,6 @@
 
 @interface KLMDetailViewController : KLMBaseViewController
 
+- (id)initWithGoodsId:(NSInteger)goodsId;
+
 @end

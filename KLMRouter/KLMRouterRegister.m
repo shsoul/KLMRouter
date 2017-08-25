@@ -57,10 +57,8 @@ static NSString *pattern = @":([a-zA-Z0-9]+)";
             patternPath = [patternPath stringByAppendingString:[pattern substringFromIndex:1]];
             loc = result.range.location + result.range.length;
             [parameters addObject:[NSMutableDictionary dictionaryWithDictionary:@{[path substringWithRange:NSMakeRange(result.range.location+1, result.range.length -1)] : @""}]];
-            NSLog(@"%@ %@",NSStringFromRange(result.range),[path substringWithRange:result.range]);
         }
         patternPath = [patternPath stringByAppendingString:[path substringWithRange:NSMakeRange(loc, path.length - loc)]];
-        NSLog(@"%@", patternPath);
         info.path = patternPath;
         info.parameter = parameters;
     }
@@ -76,7 +74,6 @@ static NSString *pattern = @":([a-zA-Z0-9]+)";
             if (info.parameter != nil) {
                 for (NSTextCheckingResult *result in results) {
                     for (NSInteger i = 1; i < result.numberOfRanges; i++) {
-                        NSLog(@"get: %@ %@",NSStringFromRange(result.range),[path substringWithRange:[result rangeAtIndex:i]]);
                         NSMutableDictionary *p = info.parameter[i-1];
                         [p setObject:[path substringWithRange:[result rangeAtIndex:i]] forKey:p.allKeys[0]];
                     }
