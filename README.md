@@ -3,14 +3,15 @@ A iOS router that help app navigate to controllers.
 
 ### 安装
 ```
-pod 'KLMRouter', '1.0.1'
+pod 'KLMRouter', '1.0.2'
 ```
 
 ### 支持
 * 支持iOS5及以上。
-* 页面路由支持push和present两种常用打开方式。
+* 页面路由支持push和present两种常用打开方式。并兼容本路由方式和原生路由方式的相互跳转。
 * 支持路由拦截器。
 * 支持参数依赖注入。
+* 支持路径参数，并支持跳转重复页面，如商品A跳转商品B。
 
 ### 使用
 * 实现KLMRouter delegate，让KLMRouter获取UIWindow。
@@ -36,6 +37,8 @@ pod 'KLMRouter', '1.0.1'
 
 ```
 [KLMRouterRegister.routerRegister registerWithPath:@"main" toClass:[KLMMainViewController class]];
+
+[KLMRouterRegister.routerRegister registerWithPath:@"detail/:goodsId/" toClass:[KLMDetailViewController class]];
 ```
 
 * 路由的ViewController需要实现协议
@@ -60,14 +63,14 @@ KLMRouter.router.delegate = self;
 KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withNavigation(YES).navigate();
 ```
 
-* 普通路由方式
+* 路由方式
 
 ```
-//请记住，由KLMRouter进来的，必须用KLMRouter回去。
-//如果不是KLMRouter进来的：原生的present打开的可以用KLMRouter回去某个navigate结点，push进来的不能用KLMRouter回去（因此用了KLMRouter，尽量不要用原生push了，没必要。。。）
-KLMRouter.router.build(@"detail").withString(@"say", @"hello").withAnimated(YES).navigate();  //push的方式，如果之前已存在，则回去之前存在的，否则打开一个新的。
+KLMRouter.router.build(@"detail").withString(@"say", @"hello").withAnimated(YES).navigate();  
 
-KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(KLMCallbackDTO *dto) {
+KLMRouter.router.build([NSString stringWithFormat:@"detail/%d/", 1000]).withAnimated(YES).navigate();
+
+KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
             //callbackblock
         }).present(); //present方式
         
@@ -97,14 +100,13 @@ KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(KLMCallbackDTO
 	
 	@implementation KLMLoginInterceptor
 
-	- (void)processWithPostcard:(KLMPostcard *)postcard callback:	(KLMInterceptorBlock)callback {
-		//需要拦截，todo。。。
+	- (void)processWithPostcard:(KLMPostcard *)postcard callback:(KLMInterceptorBlock)callback {
     	if ([postcard.url isEqualToString:@"my"]) {
-        	KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(KLMCallbackDTO *dto) {
-            callback(dto.isSuccess);
+        KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
+            callback([data boolValue]);
         }).present();
-   		} else {
-       		callback(YES);
+    	} else {
+        	callback(YES);
     	}
 	}
 	@end
