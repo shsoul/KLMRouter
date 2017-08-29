@@ -290,8 +290,18 @@
 
 - (void)popToViewController:(UIViewController *)vc withAnimated:(BOOL)animated {
     UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];
+    BOOL shouldAnimated = YES;
     while (topVC != vc) {
-        if ([topVC isKindOfClass:[UITabBarController class]]) {
+        if (topVC.tabBarController) {
+            UITabBarController *tab = topVC.tabBarController;
+            for (UIViewController *tabVC in tab.viewControllers) {
+                if (tabVC == vc) {
+                    [tab setSelectedViewController:tabVC];
+                    topVC = tabVC;
+                    return;
+                }
+            }
+        } else if ([topVC isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tab = (UITabBarController *)topVC;
             for (UIViewController *tabVC in tab.viewControllers) {
                 if (tabVC == vc) {
@@ -300,29 +310,23 @@
                     return;
                 }
             }
+        } else if (topVC.navigationController && topVC.navigationController.viewControllers.count > 1) {
+    
+            UIViewController *target = vc.tabBarController ? vc.tabBarController : vc;
+            topVC = [self popNavigationControllerStack:topVC target:target animated:shouldAnimated ? animated : NO];
+            if (topVC == target) {
+                shouldAnimated = NO;
+            }
         } else if (topVC.presentingViewController) {
             UIViewController *nextVC = topVC.presentingViewController;
             [self removeMapControllersWithViewController:topVC];
-            if (nextVC != vc) {
-                [topVC dismissViewControllerAnimated:NO completion:nil];
-            } else {
+            if (shouldAnimated) {
                 [topVC dismissViewControllerAnimated:animated completion:nil];
-            }
-            
-            topVC = nextVC;
-        } else if (topVC.navigationController) {
-            if (topVC.navigationController.viewControllers.count > 1) {
-                [self removeMapControllersWithViewController:topVC];
-                UIViewController *nextVC = topVC;
-                if (nextVC != vc) {
-                    [topVC.navigationController popViewControllerAnimated:NO];
-                } else {
-                    [topVC.navigationController popViewControllerAnimated:animated];
-                }
-                topVC = nextVC;
+                shouldAnimated = NO;
             } else {
-                topVC = topVC.navigationController.topViewController;
+                [topVC dismissViewControllerAnimated:NO completion:nil];
             }
+            topVC = nextVC;
         } else if ([topVC isKindOfClass:[UINavigationController class]]){
             topVC = [(UINavigationController *)topVC topViewController];
         } else {
@@ -331,6 +335,25 @@
     }
 }
 
+- (UIViewController *)popNavigationControllerStack:(UIViewController *)topVC target:(UIViewController *)target animated:(BOOL)animated {
+    BOOL contains = NO;
+    for (UIViewController *subVC in [topVC.navigationController.viewControllers reverseObjectEnumerator]) {
+        if (subVC != target) {
+            [self removeMapControllersWithViewController:subVC];
+        } else {
+            contains = YES;
+            break;
+        }
+    }
+    if (contains) {
+        [topVC.navigationController popToViewController:target animated:animated];
+        return target;
+    } else {
+        UIViewController *nextVC = topVC.navigationController.viewControllers[0];
+        [topVC.navigationController popToRootViewControllerAnimated:NO];
+        return nextVC;
+    }
+}
 - (void)openRootViewController {
     if ([self.delegate respondsToSelector:@selector(rootWindowFromApp)]) {
         self.window = [self.delegate rootWindowFromApp];
@@ -372,13 +395,16 @@
     }
 }
 
-- (void)popTopViewController {
+- (void)popTopViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion {
     UIViewController *vc = [self topViewControllerFrom:self.window.rootViewController];
     [self removeMapControllersWithViewController:vc];
     if (vc.navigationController && vc.navigationController.viewControllers.count > 1) {
-        [vc.navigationController popViewControllerAnimated:YES];
+        [vc.navigationController popViewControllerAnimated:animated];
+        if (completion) {
+            completion();
+        }
     } else if (vc.presentingViewController) {
-        [vc dismissViewControllerAnimated:YES completion:nil];
+        [vc dismissViewControllerAnimated:animated completion:completion];
     }
 }
 

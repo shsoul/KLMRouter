@@ -45,11 +45,13 @@
 }
 
 - (void)click:(id)sender {
-    [KLMRouter.router popTopViewController];
-    BOOL isSuccess = sender == _back ? NO : YES;
-    if (self.callback) {
-        self.callback(@(isSuccess));
-    }
+    [KLMRouter.router popTopViewControllerAnimated:YES completion:^{
+        BOOL isSuccess = sender == _back ? NO : YES;
+        if (self.callback) {
+            self.callback(@(isSuccess));
+        }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +59,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    NSLog(@"loginPage exit!");
+}
 /*
 #pragma mark - Navigation
 

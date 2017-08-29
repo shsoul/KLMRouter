@@ -40,7 +40,7 @@
 - (KLMRouter *(^)(BOOL isNavigation))withNavigation;
 - (KLMRouter *(^)(NSArray *urls))withControllersUrls;
 
-- (void)popTopViewController;
+- (void)popTopViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion;
 - (void)inject:(id)object withParameter:(NSDictionary *)parameter;
 
 @end

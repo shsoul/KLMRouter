@@ -11,7 +11,7 @@
 
 @interface KLMMainViewController ()
 @property(nonatomic, strong) UILabel *label;
-
+@property(nonatomic, strong) UIButton *present;
 @end
 
 @implementation KLMMainViewController
@@ -31,21 +31,32 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 200) / 2, self.view.frame.size.width, 30)];
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 300) / 2, self.view.frame.size.width, 30)];
     _label.text = [NSString stringWithFormat:@"返回参数： %d", 0];
     _label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_label];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 100) / 2, (self.view.frame.size.height - 60) / 2, 100, 60)];
-    [self.view addSubview:btn];
-    btn.layer.cornerRadius = 12;
-    [btn setBackgroundColor:[UIColor blueColor]];
-    [btn setTitle:@"Go" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    _present = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 100) / 2, (self.view.frame.size.height - 200) / 2, 100, 60)];
+    [self.view addSubview:_present];
+    _present.layer.cornerRadius = 12;
+    [_present setBackgroundColor:[UIColor blueColor]];
+    [_present setTitle:@"present" forState:UIControlStateNormal];
+    [_present addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *push = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 100) / 2, (self.view.frame.size.height - 60) / 2, 100, 60)];
+    [self.view addSubview:push];
+    push.layer.cornerRadius = 12;
+    [push setBackgroundColor:[UIColor blueColor]];
+    [push setTitle:@"push" forState:UIControlStateNormal];
+    [push addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)click:(id)sender {
-    KLMRouter.router.build(@"detail").withString(@"goodsId", @"10000").withAnimated(YES).withNavigation(YES).present();
+    if ([[sender currentTitle] isEqualToString:@"present"]) {
+        KLMRouter.router.build(@"detail").withString(@"goodsId", @"10000").withAnimated(YES).withNavigation(YES).present();
+    } else {
+        KLMRouter.router.build(@"detail").withString(@"goodsId", @"10000").withAnimated(YES).navigate();
+    }
 }
 
 - (void)didReceiveMemoryWarning {

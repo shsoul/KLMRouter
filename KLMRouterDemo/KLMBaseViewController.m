@@ -36,7 +36,7 @@
 }
 
 - (void)backButtonOverrideAction:(id)sender {
-    [[KLMRouter router] popTopViewController];
+    [[KLMRouter router] popTopViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -78,7 +78,7 @@
 }
 
 - (void)clickBack:(id)sender {
-    KLMRouter.router.build(@"main").withNumber(@"goodsId", @(self.goodsId)).navigate();
+    KLMRouter.router.build(@"main").withNumber(@"goodsId", @(self.goodsId)).withAnimated(YES).navigate();
 }
 
 - (void)didReceiveMemoryWarning {
