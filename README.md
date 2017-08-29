@@ -3,7 +3,7 @@ A iOS router that help app navigate to controllers.
 
 ### 安装
 ```
-pod 'KLMRouter', '1.0.2'
+pod 'KLMRouter', '1.0.2.1'
 ```
 
 ### 支持
@@ -74,7 +74,7 @@ KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
             //callbackblock
         }).present(); //present方式
         
-[[KLMRouter router] popTopViewController];//把顶部的ViewController 弹走，包括以push和present方式呈现的。
+[[KLMRouter router] popTopViewControllerAnimated:YES completion:nil];//把顶部的ViewController 弹走，包括以push和present方式呈现的。
 ```
 
 * 依赖注入
