@@ -3,7 +3,7 @@ A iOS router that help app navigate to controllers.
 
 ### 安装
 ```
-pod 'KLMRouter', '1.0.2.1'
+pod 'KLMRouter', '1.0.2.2'
 ```
 
 ### 支持
@@ -68,7 +68,7 @@ KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withN
 ```
 KLMRouter.router.build(@"detail").withString(@"say", @"hello").withAnimated(YES).navigate();  
 
-KLMRouter.router.build([NSString stringWithFormat:@"detail/%d/", 1000]).withAnimated(YES).navigate();
+KLMRouter.router.build([NSString stringWithFormat:@"detail/%ld/", 10000]).withAnimated(YES).backIfExist(NO).navigate();
 
 KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
             //callbackblock
@@ -130,5 +130,6 @@ KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
 | withCallback() | KLMCallbackBlock      |    传参（callback），可以把参数callback回来 |
 | withNavigation() | BOOL      |    是否需要包UINavigationController  |
 | withControllersUrls() | NSArray，数组内是NSString     |    build(),buildRoot()是UITabBarController才可以  |
+| backIfExist() | BOOL | 指定当跳转的path已存在时，是回到之前，还是重新打开并删除之前的。默认是YES（回到之前）。
 
 #### 注：具体使用请参考[KLMRouterDemo](https://github.com/shsoul/KLMRouter).

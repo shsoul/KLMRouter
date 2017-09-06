@@ -21,6 +21,7 @@
 @property(nonatomic, assign) BOOL animated;
 @property(nonatomic, assign) BOOL isNavigation;
 @property(nonatomic, assign) BOOL isRoot;
+@property(nonatomic, assign) BOOL back;
 @property(nonatomic, strong) NSArray *controllers;
 @property(nonatomic, strong) KLMCallbackBlock callback;
 @property(nonatomic, strong) UIWindow *window;
@@ -58,6 +59,7 @@
     _controllers = nil;
     _isRoot = NO;
     _controllers = nil;
+    _back = YES;
 }
 
 - (KLMRouter* (^)(NSString *url))build {
@@ -88,6 +90,13 @@
 - (KLMRouter *(^)(BOOL isNavigation))withNavigation {
     return ^(BOOL isNavigation) {
         self.isNavigation = isNavigation;
+        return self;
+    };
+}
+
+- (KLMRouter *(^)(BOOL back))backIfExist {
+    return ^(BOOL back) {
+        self.back = back;
         return self;
     };
 }
@@ -203,7 +212,7 @@
     [self handleWithInterceptorsWithPostcard:postcard callback:^(BOOL isSuccess) {
         if (isSuccess) {
             if (vc) {
-                if (info.parameter) {
+                if (!self.back) {
                     [self removeViewController:vc url:url];
                     
                     UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];

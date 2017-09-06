@@ -36,9 +36,13 @@
 - (KLMRouter *(^)(NSString *key, NSString *string))withString;
 - (KLMRouter *(^)(NSString *key, id value))withObject;
 - (KLMRouter *(^)(KLMCallbackBlock callback))withCallback;
+//default NO
 - (KLMRouter *(^)(BOOL animated))withAnimated;
+//default NO
 - (KLMRouter *(^)(BOOL isNavigation))withNavigation;
 - (KLMRouter *(^)(NSArray *urls))withControllersUrls;
+//default YES
+- (KLMRouter *(^)(BOOL back))backIfExist;
 
 - (void)popTopViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion;
 - (void)inject:(id)object withParameter:(NSDictionary *)parameter;

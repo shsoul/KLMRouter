@@ -73,7 +73,7 @@
     if ([sender tag] == 3) {
         [self.navigationController pushViewController:[[KLMDetailViewController alloc] initWithGoodsId:3] animated:YES];
     } else {
-        KLMRouter.router.build([NSString stringWithFormat:@"detail/%ld/", [sender tag]]).withAnimated(YES).navigate();
+        KLMRouter.router.build([NSString stringWithFormat:@"detail/%ld/", [sender tag]]).withAnimated(YES).backIfExist(NO).navigate();
     }
 }
 
