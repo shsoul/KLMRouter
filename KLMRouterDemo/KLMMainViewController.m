@@ -53,7 +53,7 @@
 
 - (void)click:(id)sender {
     if ([[sender currentTitle] isEqualToString:@"present"]) {
-        KLMRouter.router.build(@"detail").withString(@"goodsId", @"10000").withAnimated(YES).withNavigation(YES).present();
+        KLMRouter.router.build(@"detail").withString(@"goodsId", @"10000").withAnimated(YES).withNavigation([UINavigationController class]).present();
     } else {
         KLMRouter.router.build(@"detail").withString(@"goodsId", @"10000").withAnimated(YES).navigate();
     }

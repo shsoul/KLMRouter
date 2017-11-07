@@ -3,7 +3,7 @@ A iOS router that help app navigate to controllers.
 
 ### 安装
 ```
-pod 'KLMRouter', '1.0.2.2'
+pod 'KLMRouter', '1.0.2.3'
 ```
 
 ### 支持
@@ -60,7 +60,7 @@ pod 'KLMRouter', '1.0.2.2'
 KLMRouter.router.delegate = self;
 
 //初始home是TabBarController，里面有两个Controller，“main”和“my”，包了一层UINavigationController。
-KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withNavigation(YES).navigate();
+KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withNavigation([UINavigationController class]).navigate();
 ```
 
 * 路由方式
@@ -75,6 +75,9 @@ KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
         }).present(); //present方式
         
 [[KLMRouter router] popTopViewControllerAnimated:YES completion:nil];//把顶部的ViewController 弹走，包括以push和present方式呈现的。
+
+//如果由路由push进去，然后用原生的pop出来的话，pop后需要调用以下方法去除路由记录。
+- (void)removeMapControllersWithViewController:(UIViewController *)vc;
 ```
 
 * 依赖注入
@@ -128,7 +131,7 @@ KLMRouter.router.build(@"login").withAnimated(YES).withCallback(^(id data) {
 | present()      | 无      |    以present方式路由，无论页面之前是否存在，都会新建页面  |
 | withDictionary() | NSDictionary      |    传参，跟withNumber(key,value)等类似  |
 | withCallback() | KLMCallbackBlock      |    传参（callback），可以把参数callback回来 |
-| withNavigation() | BOOL      |    是否需要包UINavigationController  |
+| withNavigation() | Class      |    是否需要包UINavigationController(可以是子类)  |
 | withControllersUrls() | NSArray，数组内是NSString     |    build(),buildRoot()是UITabBarController才可以  |
 | backIfExist() | BOOL | 指定当跳转的path已存在时，是回到之前，还是重新打开并删除之前的。默认是YES（回到之前）。
 

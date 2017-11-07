@@ -27,7 +27,7 @@
     // Override point for customization after application launch.
     [self registerAll];
     KLMRouter.router.delegate = self;
-    KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withNavigation(YES).navigate();
+    KLMRouter.router.buildRoot(@"home").withControllersUrls(@[@"main", @"my"]).withNavigation([UINavigationController class]).navigate();
     return YES;
 }
 

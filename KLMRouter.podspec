@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "KLMRouter"
-  s.version      = "1.0.2.2"
+  s.version      = "1.0.2.3"
   s.summary      = "A iOS router that help app navigate to controllers."
   s.homepage     = "https://github.com/shsoul/KLMRouter"
   s.license      = "MIT"

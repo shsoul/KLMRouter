@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "KLMInterceptor.h"
 #import "KLMInjection.h"
-
+@class UIViewController;
 @class UIWindow;
 
 @protocol KLMRouterDelegate <NSObject>
@@ -38,13 +38,14 @@
 - (KLMRouter *(^)(KLMCallbackBlock callback))withCallback;
 //default NO
 - (KLMRouter *(^)(BOOL animated))withAnimated;
-//default NO
-- (KLMRouter *(^)(BOOL isNavigation))withNavigation;
+//default nil
+- (KLMRouter *(^)(Class navigation))withNavigation;
 - (KLMRouter *(^)(NSArray *urls))withControllersUrls;
 //default YES
 - (KLMRouter *(^)(BOOL back))backIfExist;
 
 - (void)popTopViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion;
 - (void)inject:(id)object withParameter:(NSDictionary *)parameter;
+- (void)removeMapControllersWithViewController:(UIViewController *)vc;
 
 @end

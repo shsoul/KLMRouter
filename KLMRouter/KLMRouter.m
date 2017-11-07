@@ -19,7 +19,7 @@
 @property(nonatomic, strong) NSString *url;
 @property(nonatomic, strong) NSMutableDictionary *parameter;
 @property(nonatomic, assign) BOOL animated;
-@property(nonatomic, assign) BOOL isNavigation;
+@property(nonatomic, strong) Class navigationController;
 @property(nonatomic, assign) BOOL isRoot;
 @property(nonatomic, assign) BOOL back;
 @property(nonatomic, strong) NSArray *controllers;
@@ -54,7 +54,7 @@
 - (void)setup {
     _parameter = [NSMutableDictionary new];
     _animated = NO;
-    _isNavigation = NO;
+    _navigationController = nil;
     _callback = nil;
     _controllers = nil;
     _isRoot = NO;
@@ -87,9 +87,9 @@
     };
 }
 
-- (KLMRouter *(^)(BOOL isNavigation))withNavigation {
-    return ^(BOOL isNavigation) {
-        self.isNavigation = isNavigation;
+- (KLMRouter *(^)(Class navigation))withNavigation {
+    return ^(Class navigation) {
+        self.navigationController = navigation;
         return self;
     };
 }
@@ -254,8 +254,8 @@
         if (isSuccess) {
             UIViewController *topVC = [self topViewControllerFrom:self.window.rootViewController];
             UIViewController *newVC = [self getNewViewControllerWithClass:info.KLMClass url:url parameter:parameter callback:callback controllers:controllers];
-            if (self.isNavigation) {
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:newVC];
+            if (self.navigationController) {
+                UINavigationController *nav = [[self.navigationController alloc] initWithRootViewController:newVC];
                 [topVC presentViewController:nav animated:animated completion:nil];
             } else {
                 [topVC presentViewController:newVC animated:animated completion:nil];
@@ -378,8 +378,8 @@
     postcard.openMode = KLMPush;
     postcard.parameter = self.parameter;
     UIViewController *vc = [self getNewViewControllerWithClass:info.KLMClass url:self.url parameter:self.parameter callback:self.callback controllers:self.controllers];
-    if (self.isNavigation) {
-        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
+    if (self.navigationController) {
+        self.window.rootViewController = [[self.navigationController alloc] initWithRootViewController:vc];
     } else {
         self.window.rootViewController = vc;
     }

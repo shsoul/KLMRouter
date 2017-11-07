@@ -69,6 +69,14 @@
     [self.view addSubview:backMain];
 }
 
+- (void)backButtonOverrideAction:(id)sender {
+    if (self.navigationController.viewControllers.count <= 1) {
+        [[KLMRouter router] popTopViewControllerAnimated:YES completion:nil];
+    }
+    UIViewController *vc = [self.navigationController popViewControllerAnimated:YES];
+    [[KLMRouter router] removeMapControllersWithViewController:vc];
+}
+
 - (void)clickGoods:(id)sender {
     if ([sender tag] == 3) {
         [self.navigationController pushViewController:[[KLMDetailViewController alloc] initWithGoodsId:3] animated:YES];
